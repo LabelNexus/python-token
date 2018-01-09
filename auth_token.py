@@ -1,5 +1,4 @@
 from itsdangerous import TimedJSONWebSignatureSerializer, SignatureExpired, BadSignature
-import pyro
 import os
 
 EXCEPTION_TYPE = Exception
