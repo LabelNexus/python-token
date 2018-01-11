@@ -1,7 +1,6 @@
 from itsdangerous import TimedJSONWebSignatureSerializer, SignatureExpired, BadSignature
+from lumavate_exceptions import AuthorizationException
 import os
-
-EXCEPTION_TYPE = Exception
 
 def _get_serializer():
   return TimedJSONWebSignatureSerializer(os.environ['PRIVATE_KEY'])
@@ -25,9 +24,9 @@ class AuthToken:
     try:
       self._data = _get_serializer().loads(token)
     except SignatureExpired:
-      raise EXCEPTION_TYPE('Token expired')
+      raise AuthorizationException('Token expired')
     except BadSignature:
-      raise EXCEPTION_TYPE('Invalid token')
+      raise AuthorizationException('Invalid token')
 
   @property
   def session(self):
