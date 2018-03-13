@@ -163,3 +163,11 @@ class AuthToken:
   @display_name.setter
   def display_name(self, value):
     self._data['displayName'] = value
+
+  @property
+  def query_string(self):
+    return self._data.get('queryString')
+
+  @query_string.setter
+  def query_string(self, value):
+    self._data['queryString'] = value
