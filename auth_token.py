@@ -171,3 +171,11 @@ class AuthToken:
   @query_string.setter
   def query_string(self, value):
     self._data['queryString'] = value
+
+  @property
+  def is_browser_supported(self):
+    return self._data.get('isBrowserSupported')
+
+  @is_browser_supported.setter
+  def is_browser_supported(self, value):
+    self._data['isBrowserSupported'] = value
