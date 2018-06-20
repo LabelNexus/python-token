@@ -16,6 +16,7 @@ class AuthToken:
     self._data = {}
     self.lang = 'en-us'
     self.default_lang = 'en-us'
+    self.is_browser_supported = True
 
   def get_token(self):
     return _get_serializer().dumps(self._data).decode('utf-8')
