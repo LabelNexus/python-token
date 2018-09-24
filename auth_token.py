@@ -55,10 +55,14 @@ class AuthToken:
 
   @property
   def company_id(self):
+    if 'orgId' in self._data:
+      return self._data.get('orgId')
+
     return self._data.get('companyId')
 
   @company_id.setter
   def company_id(self, value):
+    self._data['orgId'] = value
     self._data['companyId'] = value
 
   @property
@@ -68,14 +72,6 @@ class AuthToken:
   @version.setter
   def version(self, value):
     self._data['version'] = value
-
-  @property
-  def template_id(self):
-    return self._data.get('templateId')
-
-  @template_id.setter
-  def template_id(self, value):
-    self._data['templateId'] = value
 
   @property
   def site_id(self):
@@ -100,14 +96,6 @@ class AuthToken:
   @activation_id.setter
   def activation_id(self, value):
     self._data['activationId'] = value
-
-  @property
-  def subscriber_id(self):
-    return self._data.get('subscriberId')
-
-  @subscriber_id.setter
-  def subscriber_id(self, value):
-    self._data['subscriberId'] = value
 
   @property
   def home_url(self):
@@ -140,30 +128,6 @@ class AuthToken:
   @default_lang.setter
   def default_lang(self, value):
     self._data['defaultLang'] = value
-
-  @property
-  def pre_cache_data_routes(self):
-    return self._data.get('preCacheDataRoutes')
-
-  @pre_cache_data_routes.setter
-  def pre_cache_data_routes(self, value):
-    self._data['preCacheDataRoutes'] = value
-
-  @property
-  def theme_color(self):
-    return self._data.get('themeColor')
-
-  @theme_color.setter
-  def theme_color(self, value):
-    self._data['themeColor'] = value
-
-  @property
-  def display_name(self):
-    return self._data.get('displayName')
-
-  @display_name.setter
-  def display_name(self, value):
-    self._data['displayName'] = value
 
   @property
   def query_string(self):
