@@ -46,6 +46,14 @@ class AuthToken:
     self._data['namespace'] = value
 
   @property
+  def code(self):
+    return self._data.get('code')
+
+  @code.setter
+  def code(self, value):
+    self._data['code'] = value
+
+  @property
   def scope(self):
     return self._data.get('scope')
 
