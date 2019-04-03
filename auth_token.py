@@ -74,6 +74,14 @@ class AuthToken:
     self._data['companyId'] = value
 
   @property
+  def org_type(self):
+    return self._data.get('orgType')
+
+  @org_type.setter
+  def org_type(self, value):
+    self._data['orgType'] = value
+
+  @property
   def version(self):
     return self._data.get('version')
 
@@ -152,3 +160,27 @@ class AuthToken:
   @is_browser_supported.setter
   def is_browser_supported(self, value):
     self._data['isBrowserSupported'] = value
+
+  @property
+  def user(self):
+    return self._data.get('user')
+
+  @user.setter
+  def user(self, value):
+    self._data['user'] = value
+
+  @property
+  def role(self):
+    return self._data.get('role')
+
+  @role.setter
+  def role(self, value):
+    self._data['role'] = value
+
+  @property
+  def container_version_id(self):
+    return self._data.get('containerVersionId')
+
+  @container_version_id.setter
+  def container_version_id(self, value):
+    self._data['containerVersionId'] = value
