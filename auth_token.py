@@ -1,6 +1,7 @@
 from itsdangerous import TimedJSONWebSignatureSerializer, SignatureExpired, BadSignature
 from lumavate_exceptions import AuthorizationException
 import os
+import uuid
 
 def _get_serializer():
   return TimedJSONWebSignatureSerializer(os.environ['PRIVATE_KEY'])
@@ -13,7 +14,9 @@ class AuthToken:
     return t
 
   def __init__(self):
-    self._data = {}
+    self._data = {
+      'salt': str(uuid.uuid4())[:8]
+    }
     self.lang = 'en-us'
     self.default_lang = 'en-us'
     self.is_browser_supported = True
