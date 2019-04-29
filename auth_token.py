@@ -133,6 +133,14 @@ class AuthToken:
     self._data['authUrl'] = value
 
   @property
+  def sw_url(self):
+    return self._data.get('swUrl')
+
+  @sw_url.setter
+  def sw_url(self, value):
+    self._data['swUrl'] = value
+
+  @property
   def lang(self):
     return self._data.get('lang')
 
