@@ -1,10 +1,11 @@
 from itsdangerous import TimedJSONWebSignatureSerializer, SignatureExpired, BadSignature
 from lumavate_exceptions import AuthorizationException
 import os
+import pyro
 import uuid
 
 def _get_serializer():
-  return TimedJSONWebSignatureSerializer(os.environ['PRIVATE_KEY'])
+  return TimedJSONWebSignatureSerializer(pyro.get_setting('PRIVATE_KEY'))
 
 class AuthToken:
   @staticmethod
