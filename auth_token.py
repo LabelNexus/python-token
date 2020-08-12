@@ -1,11 +1,21 @@
 from itsdangerous import TimedJSONWebSignatureSerializer, SignatureExpired, BadSignature
 from lumavate_exceptions import AuthorizationException
 import os
-import pyro
 import uuid
 
+# Attempt to import pyro - tolerate the miss if it's not in the pythonpath
+try:
+  import pyro
+except:
+  pass
+
 def _get_serializer():
-  return TimedJSONWebSignatureSerializer(pyro.get_setting('PRIVATE_KEY'))
+  # Load the private key - if pyro is loaded, make sure to use get_setting.
+  # Otherwise os.genenv is the best place.
+  private_key = os.getenv('PRIVATE_KEY')
+  if pyro:
+    private_key = pyro.get_setting('PRIVATE_KEY')
+  return TimedJSONWebSignatureSerializer(private_key)
 
 class AuthToken:
   @staticmethod
