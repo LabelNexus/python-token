@@ -7,7 +7,7 @@ import uuid
 try:
   import pyro
 except:
-  pass
+  pyro = None
 
 def _get_serializer():
   # Load the private key - if pyro is loaded, make sure to use get_setting.
