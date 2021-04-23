@@ -88,6 +88,14 @@ class AuthToken:
     self._data['companyId'] = value
 
   @property
+  def is_test_company(self):
+    return self._data.get('isTestCompany')
+
+  @is_test_company.setter
+  def is_test_company(self, value):
+    self._data['isTestCompany'] = value
+
+  @property
   def org_type(self):
     return self._data.get('orgType')
 
