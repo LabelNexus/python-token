@@ -19,6 +19,18 @@ def _get_serializer():
 
 class AuthToken:
   @staticmethod
+  def from_cookie():
+    pwa_jwt = request.cookies.get('pwa_jwt')
+    if not pwa_jwt:
+      raise pyro.ApiException(401, 'Not Authorized')
+
+    token = lumavate_token.AuthToken.from_token(pwa_jwt)
+    if token is None:
+      raise pyro.ApiException(401, 'Not Authorized')
+
+    return token
+
+  @staticmethod
   def from_token(token):
     t = AuthToken()
     t.read_token(token)
@@ -36,11 +48,13 @@ class AuthToken:
     return _get_serializer().dumps(self._data).decode('utf-8')
 
   def read_token(self, token):
+    if token.startswith('Bearer '):
+      token = token.replace('Bearer ', '')
     try:
       self._data = _get_serializer().loads(token)
     except SignatureExpired:
       raise AuthorizationException('Token expired')
-    except BadSignature:
+    except BadSignature as e:
       raise AuthorizationException('Invalid token')
 
   @property
