@@ -1,4 +1,5 @@
 from itsdangerous import TimedJSONWebSignatureSerializer, SignatureExpired, BadSignature
+from flask import request
 from lumavate_exceptions import AuthorizationException
 import os
 import uuid
@@ -22,11 +23,9 @@ class AuthToken:
   def from_cookie():
     pwa_jwt = request.cookies.get('pwa_jwt')
     if not pwa_jwt:
-      raise pyro.ApiException(401, 'Not Authorized')
+      return None
 
-    token = lumavate_token.AuthToken.from_token(pwa_jwt)
-    if token is None:
-      raise pyro.ApiException(401, 'Not Authorized')
+    token = AuthToken.from_token(pwa_jwt)
 
     return token
 
