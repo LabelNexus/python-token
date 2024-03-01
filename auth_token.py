@@ -227,3 +227,11 @@ class AuthToken:
   @container_version_id.setter
   def container_version_id(self, value):
     self._data['containerVersionId'] = value
+
+  @property
+  def container_url_ref(self):
+    return self._data.get('containerUrlRef')
+
+  @container_url_ref.setter
+  def container_url_ref(self, value):
+    self._data['containerUrlRef'] = value
