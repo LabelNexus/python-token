@@ -214,3 +214,11 @@ class AuthToken:
   @container_version_id.setter
   def container_version_id(self, value):
     self._data['containerVersionId'] = value
+
+  @property
+  def role_permissions(self):
+    return self._data.get('rolePermissions')
+
+  @role_permissions.setter
+  def role_permissions(self, value):
+    self._data['rolePermissions'] = value
