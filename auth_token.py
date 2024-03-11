@@ -235,3 +235,11 @@ class AuthToken:
   @container_url_ref.setter
   def container_url_ref(self, value):
     self._data['containerUrlRef'] = value
+
+  @property
+  def role_permissions(self):
+    return self._data.get('rolePermissions')
+
+  @role_permissions.setter
+  def role_permissions(self, value):
+    self._data['rolePermissions'] = value
