@@ -1,4 +1,5 @@
 from itsdangerous import TimedJSONWebSignatureSerializer, SignatureExpired, BadSignature
+from flask import request
 from lumavate_exceptions import AuthorizationException
 import os
 import uuid
@@ -19,6 +20,16 @@ def _get_serializer():
 
 class AuthToken:
   @staticmethod
+  def from_cookie():
+    pwa_jwt = request.cookies.get('pwa_jwt')
+    if not pwa_jwt:
+      return None
+
+    token = AuthToken.from_token(pwa_jwt)
+
+    return token
+
+  @staticmethod
   def from_token(token):
     t = AuthToken()
     t.read_token(token)
@@ -36,11 +47,13 @@ class AuthToken:
     return _get_serializer().dumps(self._data).decode('utf-8')
 
   def read_token(self, token):
+    if token.startswith('Bearer '):
+      token = token.replace('Bearer ', '')
     try:
       self._data = _get_serializer().loads(token)
     except SignatureExpired:
       raise AuthorizationException('Token expired')
-    except BadSignature:
+    except BadSignature as e:
       raise AuthorizationException('Invalid token')
 
   @property
@@ -214,6 +227,14 @@ class AuthToken:
   @container_version_id.setter
   def container_version_id(self, value):
     self._data['containerVersionId'] = value
+
+  @property
+  def container_url_ref(self):
+    return self._data.get('containerUrlRef')
+
+  @container_url_ref.setter
+  def container_url_ref(self, value):
+    self._data['containerUrlRef'] = value
 
   @property
   def role_permissions(self):
