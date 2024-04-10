@@ -243,3 +243,11 @@ class AuthToken:
   @role_permissions.setter
   def role_permissions(self, value):
     self._data['rolePermissions'] = value
+
+  @property
+  def is_service_user(self):
+    return self._data.get('isServiceUser')
+
+  @is_service_user.setter
+  def is_service_user(self, value):
+    self._data['isServiceUser'] = value
