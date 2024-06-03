@@ -20,6 +20,17 @@ def _get_serializer():
 
 class AuthToken:
   @staticmethod
+  def get_auth_from_request():
+    jwt = AuthToken.from_cookie()
+    if jwt is None:
+      jwt = request.headers.get('Authorization')
+      if jwt:
+        return AuthToken.from_token(jwt)
+
+    return jwt
+
+
+  @staticmethod
   def from_cookie():
     pwa_jwt = request.cookies.get('pwa_jwt')
     if not pwa_jwt:
